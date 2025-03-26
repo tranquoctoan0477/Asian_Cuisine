@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="16dp">
+
+    <!-- Tiêu đề + icon filter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/sectionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="FOOD FOR YOU"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:textColor="@android:color/darker_gray"
+            android:textAllCaps="true" />
+
+        <ImageView
+            android:id="@+id/foodFilterIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_filter"
+            android:contentDescription="Filter"
+            android:padding="4dp" />
+    </LinearLayout>
+
+    <!-- RecyclerView hiển thị món ăn -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/foodRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:nestedScrollingEnabled="true" />
+
+</LinearLayout>

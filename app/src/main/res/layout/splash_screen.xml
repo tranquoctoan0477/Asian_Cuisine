@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Ảnh nền -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg01"
+        android:scaleType="centerCrop" />
+
+    <!-- Khung nội dung -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_gradient_overlay"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Logo nhà hàng -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo Sushi Restaurant"
+            android:layout_marginBottom="56dp" />
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chào mừng đến Sushi Restaurant!"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="18dp" />
+
+        <!-- Mô tả -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trải nghiệm ẩm thực Nhật Bản tinh tế với những món sushi ngon nhất."
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</FrameLayout>

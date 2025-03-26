@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg01">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/img_logo"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="Logo Sushi" />
+
+        <!-- Username -->
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Tên đăng nhập"
+            android:background="@drawable/edittext_background"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edittext_background"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Số điện thoại -->
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Số điện thoại"
+            android:inputType="phone"
+            android:background="@drawable/edittext_background"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Mật khẩu -->
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_background"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Mật khẩu -->
+        <EditText
+            android:id="@+id/editTextconfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Nhập lại mật khẩu"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_background"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Giới tính -->
+        <RadioGroup
+            android:id="@+id/genderGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nam"
+                android:textColor="@color/colorPrimary"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_marginEnd="150dp" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nữ"
+                android:textColor="@color/colorPrimary"
+                android:buttonTint="@color/colorPrimary" />
+        </RadioGroup>
+
+        <!-- Nút Đăng ký -->
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Đăng ký"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_primary"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Điều hướng đăng nhập -->
+        <TextView
+            android:id="@+id/textGoToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã có tài khoản? Đăng nhập"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,16 @@
+<!-- bg_gradient_overlay.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Bo góc trên trái/phải -->
+    <corners
+        android:topLeftRadius="32dp"
+        android:topRightRadius="32dp" />
+
+    <!-- Gradient từ trong suốt → đen -->
+    <gradient
+        android:angle="90"
+        android:startColor="#00000000"
+        android:endColor="#CC000000" />
+</shape>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#0f1317"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 1. Top bar -->
+        <include layout="@layout/layout_topbar_user" />
+
+        <!-- 2. Search bar -->
+        <include layout="@layout/layout_search_bar" />
+
+        <!-- 3. Banner khuyến mãi -->
+        <include layout="@layout/layout_banner_promo" />
+
+        <!-- 4. Section danh mục -->
+        <include layout="@layout/layout_category_section" />
+
+        <!-- 5. Section món ăn -->
+        <include layout="@layout/layout_food_section" />
+
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_gradient" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

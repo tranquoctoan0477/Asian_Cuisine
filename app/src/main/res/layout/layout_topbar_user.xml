@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/nen">
+
+    <!-- Avatar người dùng -->
+    <ImageView
+        android:id="@+id/img_avataruser"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_logo"
+        android:background="@drawable/indicator_inactive"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="User Avatar" />
+    <!--
+        📌 Sau này bạn sẽ load ảnh từ API qua Glide:
+        Glide.with(context).load(user.getAvatarUrl()).into(imgAvatar);
+    -->
+
+    <!-- Tên người dùng -->
+    <TextView
+        android:id="@+id/tv_topbarusername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Hi, Sushi Lover 🍣"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+    <!--
+        📌 Sau này sẽ truyền từ API:
+        tvUsername.setText("Hi, " + user.getName());
+    -->
+
+    <!-- Icon thông báo -->
+    <ImageButton
+        android:id="@+id/btn_notify"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_notification"
+        android:background="@null"
+        android:contentDescription="Notifications"
+        android:adjustViewBounds="true"/>
+    <!--
+        📌 Bạn có thể gắn sự kiện click sau này:
+        btnNotify.setOnClickListener(...);
+    -->
+
+</LinearLayout>

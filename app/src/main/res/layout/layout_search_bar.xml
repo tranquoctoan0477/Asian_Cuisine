@@ -1,0 +1,42 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/darker">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Icon tìm kiếm -->
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_search"
+            android:layout_centerVertical="true" />
+
+        <!-- EditText -->
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/ic_search"
+            android:layout_marginStart="12dp"
+            android:background="@null"
+            android:hint="Search here..."
+            android:textColor="@android:color/white"
+            android:textColorHint="#AAAAAA"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:singleLine="true" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
