@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    android:background="@color/darker">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darker"
+        android:padding="16dp">
+
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/image_user_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/img_logo"
+            android:scaleType="centerCrop"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/bg_circle"
+            android:padding="4dp" />
+
+        <!-- Tên người dùng -->
+        <TextView
+            android:id="@+id/text_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trần Quốc Toàn"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_toEndOf="@id/image_user_avatar"
+            android:layout_marginStart="12dp"
+            android:layout_alignTop="@id/image_user_avatar" />
+
+        <!-- Số điện thoại -->
+        <TextView
+            android:id="@+id/text_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+84 912 345 678"
+            android:textSize="14sp"
+            android:textColor="#bbbbbb"
+            android:layout_below="@id/text_user_name"
+            android:layout_alignStart="@id/text_user_name"
+            android:layout_marginTop="4dp" />
+
+        <!-- Nút sửa -->
+        <ImageButton
+            android:id="@+id/button_edit_user"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit"
+            android:background="@android:color/transparent"
+            android:contentDescription="Sửa thông tin"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

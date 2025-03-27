@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/darker">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/text_guest_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng khách"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Bộ chọn số lượng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Nút giảm -->
+        <ImageButton
+            android:id="@+id/button_guest_minus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle"
+            android:src="@drawable/ic_minus"
+            android:contentDescription="Giảm số lượng" />
+
+        <!-- Text hiển thị số lượng -->
+        <TextView
+            android:id="@+id/text_guest_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="36dp" />
+
+        <!-- Nút tăng -->
+        <ImageButton
+            android:id="@+id/button_guest_plus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle"
+            android:src="@drawable/ic_plus"
+            android:contentDescription="Tăng số lượng" />
+    </LinearLayout>
+</LinearLayout>

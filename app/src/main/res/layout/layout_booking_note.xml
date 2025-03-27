@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/darker">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/text_note_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ghi chú (tuỳ chọn)"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText ghi chú -->
+    <EditText
+        android:id="@+id/edit_note"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="Nhập yêu cầu đặc biệt..."
+        android:gravity="start|top"
+        android:backgroundTint="@color/cam"
+        android:textColor="@android:color/white"
+        android:textColorHint="#BBBBBB"
+        android:padding="12dp"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:minLines="3" />
+</LinearLayout>

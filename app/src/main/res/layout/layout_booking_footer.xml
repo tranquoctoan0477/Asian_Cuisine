@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="@color/darker"
+    android:gravity="center">
+
+    <!-- Nút Hủy -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_cancel_booking"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:text="Huỷ"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="#444444"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Nút Đặt Bàn Ngay -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_confirm_booking"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:text="Đặt bàn ngay"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bg_button_checkout"
+        android:backgroundTint="@null" />
+</LinearLayout>
