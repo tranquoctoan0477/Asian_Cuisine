@@ -1,5 +1,6 @@
 package com.example.appasiancuisine.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.example.appasiancuisine.data.dto.ProductDTO;
 import com.example.appasiancuisine.presenter.HomeContract;
 import com.example.appasiancuisine.presenter.HomePresenter;
 import com.example.appasiancuisine.presenter.ReloadableFragment;
+import com.example.appasiancuisine.view.ProductDetailActivity;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.ArrayList;
@@ -136,11 +138,17 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
     private void setupFoodSection(View view) {
         foodRecyclerView = view.findViewById(R.id.foodRecyclerView);
         foodRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+
         foodAdapter = new FoodAdapter(requireContext(), fullProductList, product -> {
-            // TODO: Chuyển sang ProductDetailActivity
+            // Khi người dùng bấm vào sản phẩm → mở ProductDetailActivity
+            Intent intent = new Intent(requireContext(), ProductDetailActivity.class);
+            intent.putExtra("productId", product.getId());
+            startActivity(intent);
         });
+
         foodRecyclerView.setAdapter(foodAdapter);
     }
+
 
     private void setupSearch(View view) {
         searchInput = view.findViewById(R.id.edt_search);

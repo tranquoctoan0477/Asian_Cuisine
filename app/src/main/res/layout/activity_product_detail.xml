@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0f1317">
+
+    <!-- Header cố định ở trên -->
+    <include
+        android:id="@+id/headerLayout"
+        layout="@layout/header_product_detail" />
+
+    <!-- Nội dung cuộn phía dưới -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/detailScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <!-- Product Image Slider (ViewPager2 with Image) -->
+            <include layout="@layout/product_image_slider" />
+
+            <!-- Product Info (Product name, price, rating, etc.) -->
+            <include layout="@layout/product_info" />
+
+            <!-- Related Products (RecyclerView for displaying related products) -->
+            <include layout="@layout/related_products" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

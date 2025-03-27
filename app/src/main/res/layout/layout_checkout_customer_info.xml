@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/darker">
+
+    <!-- Estimated Delivery -->
+    <TextView
+        android:id="@+id/text_estimated_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dự kiến giao hàng: 30–40 phút"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:paddingBottom="8dp" />
+
+    <!-- Address -->
+    <EditText
+        android:id="@+id/edit_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Địa chỉ giao hàng"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/cam"
+        android:textColorHint="#BBBBBB"
+        android:inputType="textPostalAddress"
+        android:drawableStart="@drawable/ic_location"
+        android:padding="12dp" />
+
+    <!-- Phone number -->
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/cam"
+        android:drawableStart="@drawable/ic_phone"
+        android:textColorHint="#BBBBBB"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+
+    <EditText
+        android:id="@+id/edit_address_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ghi chú địa chỉ cụ thể"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/cam"
+        android:textColorHint="#BBBBBB"
+        android:inputType="textCapSentences"
+        android:minLines="2"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

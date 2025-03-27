@@ -1,6 +1,7 @@
 package com.example.appasiancuisine.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appasiancuisine.R;
 import com.example.appasiancuisine.data.dto.ProductDTO;
+import com.example.appasiancuisine.view.ProductDetailActivity;
 
 import java.util.List;
 
@@ -33,8 +35,15 @@ public class FoodPagerAdapter extends RecyclerView.Adapter<FoodPagerAdapter.Page
 
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
-        List<ProductDTO> foodsInPage = pagedProductList.get(position); // sử dụng ProductDTO ở đây
-        SpecialFoodAdapter adapter = new SpecialFoodAdapter(context, foodsInPage);
+        List<ProductDTO> foodsInPage = pagedProductList.get(position);
+
+        SpecialFoodAdapter adapter = new SpecialFoodAdapter(context, foodsInPage, product -> {
+            Intent intent = new Intent(context.getApplicationContext(), ProductDetailActivity.class);
+            intent.putExtra("productId", product.getId());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // dùng vì không phải là activity context
+            context.startActivity(intent);
+        });
+
         holder.recyclerView.setAdapter(adapter);
     }
 

@@ -11,4 +11,6 @@ public class AppConfig {
     public static final String REFRESH_TOKEN_URL = BASE_URL + "/api/auth/refresh-token";
     // Đường dẫn đầy đủ API home
     public static final String Home_URL = BASE_URL + "/api/home";
+    // Đường dẫn đầy đủ API home
+    public static final String ProductDetail_URL = BASE_URL + "/api/products";
 }

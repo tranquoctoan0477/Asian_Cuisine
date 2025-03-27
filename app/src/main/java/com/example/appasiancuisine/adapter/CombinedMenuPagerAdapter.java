@@ -1,6 +1,7 @@
 package com.example.appasiancuisine.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appasiancuisine.R;
 import com.example.appasiancuisine.data.dto.CategoryDTO;
 import com.example.appasiancuisine.data.dto.ProductDTO;
+import com.example.appasiancuisine.view.ProductDetailActivity;
 
 import java.util.List;
 
@@ -66,7 +68,22 @@ public class CombinedMenuPagerAdapter extends RecyclerView.Adapter<RecyclerView.
             Log.d("CombinedMenuPagerAdapter", "Gán dữ liệu PRODUCT tại trang: " + pageIndex + " (Sản phẩm: " + productList.size() + ")");
 
             ProductViewHolder vh = (ProductViewHolder) holder;
-            SpecialFoodAdapter adapter = new SpecialFoodAdapter(context, productList);
+
+            // ⚠️ Truyền thêm sự kiện click có kiểm tra null
+            SpecialFoodAdapter adapter = new SpecialFoodAdapter(context, productList, product -> {
+                if (product != null) {
+                    Log.d("CombinedMenuPagerAdapter", "Click vào sản phẩm: " + product.getName());
+
+                    Intent intent = new Intent(context.getApplicationContext(), ProductDetailActivity.class);
+                    intent.putExtra("productId", product.getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Cần thiết khi context không phải Activity
+                    context.startActivity(intent);
+                } else {
+                    Log.w("CombinedMenuPagerAdapter", "Sản phẩm được click là null!");
+                }
+            });
+
+            vh.recyclerView.setHasFixedSize(true); // ✅ Tối ưu hiệu suất nếu dữ liệu ổn định
             vh.recyclerView.setAdapter(adapter);
         }
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/darker">
+
+    <!-- Header: Cố định trên cùng -->
+    <include layout="@layout/layout_checkout_header" />
+
+    <!-- Nội dung cuộn: Thông tin KH + danh sách món + biên lai -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- Thông tin khách hàng -->
+            <include layout="@layout/layout_checkout_customer_info" />
+
+            <!-- Danh sách món đã chọn -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_checkout_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:padding="8dp" />
+
+            <!-- Biên lai thanh toán -->
+            <include layout="@layout/layout_checkout_receipt" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Footer: Mã giảm giá + Xác nhận -->
+    <include layout="@layout/layout_checkout_footer" />
+</LinearLayout>

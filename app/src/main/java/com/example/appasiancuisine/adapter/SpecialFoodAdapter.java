@@ -20,12 +20,21 @@ import java.util.List;
 
 public class SpecialFoodAdapter extends RecyclerView.Adapter<SpecialFoodAdapter.SpecialFoodViewHolder> {
 
+
+
     private final Context context;
     private final List<ProductDTO> foodList;
+    private final OnItemClickListener onItemClickListener;
 
-    public SpecialFoodAdapter(Context context, List<ProductDTO> foodList) {
+    public interface OnItemClickListener {
+        void onItemClick(ProductDTO product);
+    }
+
+
+    public SpecialFoodAdapter(Context context, List<ProductDTO> foodList, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.foodList = foodList;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -60,7 +69,9 @@ public class SpecialFoodAdapter extends RecyclerView.Adapter<SpecialFoodAdapter.
 
         // Thêm click listener nếu cần
         holder.itemView.setOnClickListener(v -> {
-            // TODO: Xử lý click vào món ăn đặc biệt ở đây
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(food);
+            }
         });
     }
 

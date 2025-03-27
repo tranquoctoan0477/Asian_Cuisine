@@ -13,8 +13,8 @@
 
         <!-- Logo -->
         <ImageView
-            android:layout_width="220dp"
-            android:layout_height="220dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/img_logo"
             android:layout_marginBottom="24dp"
             android:contentDescription="Logo Sushi" />
@@ -111,13 +111,13 @@
         </RadioGroup>
 
         <!-- Nút Đăng ký -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Đăng ký"
             android:textColor="@android:color/white"
-            android:background="@drawable/button_primary"
+            android:background="@drawable/bg_button_checkout"
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
 

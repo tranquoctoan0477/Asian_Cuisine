@@ -34,6 +34,7 @@
         <activity android:name=".view.AuthChoiceActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.RegisterActivity" />
+        <activity android:name=".view.ProductDetailActivity" />
 
         <activity
             android:name=".view.MainActivity"
