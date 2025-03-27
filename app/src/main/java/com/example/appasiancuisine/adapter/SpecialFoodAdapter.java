@@ -1,4 +1,5 @@
 package com.example.appasiancuisine.adapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appasiancuisine.R;
-import com.example.appasiancuisine.model.SpecialFoodModel;
+import com.example.appasiancuisine.data.dto.ProductDTO;
+import com.example.appasiancuisine.utils.AppConfig;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class SpecialFoodAdapter extends RecyclerView.Adapter<SpecialFoodAdapter.SpecialFoodViewHolder> {
 
     private final Context context;
-    private final List<SpecialFoodModel> foodList;
+    private final List<ProductDTO> foodList;
 
-    public SpecialFoodAdapter(Context context, List<SpecialFoodModel> foodList) {
+    public SpecialFoodAdapter(Context context, List<ProductDTO> foodList) {
         this.context = context;
         this.foodList = foodList;
     }
@@ -34,18 +37,31 @@ public class SpecialFoodAdapter extends RecyclerView.Adapter<SpecialFoodAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SpecialFoodViewHolder holder, int position) {
-        SpecialFoodModel food = foodList.get(position);
-        holder.foodImage.setImageResource(food.getImageResId());
+        ProductDTO food = foodList.get(position);
+
+        // Load ảnh từ API với Picasso
+        String fullImageUrl = AppConfig.BASE_URL + food.getMainImg();
+        Picasso.get()
+                .load(fullImageUrl)
+                .placeholder(R.drawable.pd10)
+                .error(R.drawable.pd10)
+                .into(holder.foodImage);
+
         holder.foodName.setText(food.getName());
-        holder.foodPrice.setText(food.getPrice());
+        holder.foodPrice.setText(String.format("$%.2f", food.getPrice()));
         holder.foodDesc.setText(food.getDescription());
 
-        // Áp dụng hiệu ứng zig-zag
+        // Hiệu ứng zig-zag
         if (position % 2 == 0) {
             holder.rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR); // Ảnh trái
         } else {
             holder.rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL); // Ảnh phải
         }
+
+        // Thêm click listener nếu cần
+        holder.itemView.setOnClickListener(v -> {
+            // TODO: Xử lý click vào món ăn đặc biệt ở đây
+        });
     }
 
     @Override
@@ -68,4 +84,3 @@ public class SpecialFoodAdapter extends RecyclerView.Adapter<SpecialFoodAdapter.
         }
     }
 }
-

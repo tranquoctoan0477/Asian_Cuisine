@@ -110,9 +110,28 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
     private void setupCategorySection(View view) {
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        categoryAdapter = new CategoryAdapter(categoryList);
+        categoryAdapter = new CategoryAdapter(categoryList, category -> {
+            // Khi người dùng click vào danh mục bất kỳ
+            filterProductsByCategory(category.getId());
+        });
         categoryRecyclerView.setAdapter(categoryAdapter);
     }
+
+    // Lọc sản phẩm theo danh mục được chọn và hiển thị lên giao diện
+    private void filterProductsByCategory(int categoryId) {
+        List<ProductDTO> filteredList = new ArrayList<>();
+        for (ProductDTO product : originalProductList) {
+            if (product.getCategoryId() == categoryId) {
+                filteredList.add(product);
+            }
+        }
+
+        fullProductList.clear();
+        fullProductList.addAll(filteredList);
+        foodAdapter.updateData(fullProductList);
+        foodRecyclerView.scrollToPosition(0);
+    }
+
 
     private void setupFoodSection(View view) {
         foodRecyclerView = view.findViewById(R.id.foodRecyclerView);
@@ -253,6 +272,24 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
         new Handler().postDelayed(() -> {
             loadingSpinner.setVisibility(View.GONE);
         }, 2500);
+    }
+
+    public void setupDataFromApi(HomeResponse response) {
+        // Gửi dữ liệu ban đầu giống như reload nhưng không hiển thị loading spinner
+        currentPage = 0;
+        currentSearchQuery = "";
+        fullProductList.clear();
+        originalProductList.clear();
+
+        categoryList.clear();
+        categoryList.addAll(response.getCategories());
+        categoryAdapter.notifyDataSetChanged();
+
+        originalProductList.addAll(response.getAllProducts());
+        fullProductList.addAll(response.getAllProducts());
+        foodAdapter.updateData(fullProductList);
+
+        foodRecyclerView.scrollToPosition(0);
     }
 
 

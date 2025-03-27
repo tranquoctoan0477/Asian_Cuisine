@@ -19,10 +19,16 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private List<CategoryDTO> categoryList;
+    public interface OnCategoryClickListener {
+        void onCategoryClick(CategoryDTO category);
+    }
 
-    public CategoryAdapter(List<CategoryDTO> categoryList) {
+    private List<CategoryDTO> categoryList;
+    private OnCategoryClickListener listener;
+
+    public CategoryAdapter(List<CategoryDTO> categoryList, OnCategoryClickListener listener) {
         this.categoryList = categoryList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,16 +43,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         CategoryDTO category = categoryList.get(position);
 
         holder.title.setText(category.getName());
-
-        // Lấy URL đầy đủ từ AppConfig
         String imageUrl = AppConfig.BASE_URL + category.getCategoryImg();
-        Log.d("CategoryAdapter", "Loading image from URL: " + imageUrl);
-
-        Picasso.get()
-                .load(imageUrl)
+        Picasso.get().load(imageUrl)
                 .placeholder(R.drawable.pd10)
                 .error(R.drawable.pd10)
                 .into(holder.image);
+
+        holder.itemView.setOnClickListener(v -> listener.onCategoryClick(category));
     }
 
     @Override
@@ -65,3 +68,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
     }
 }
+

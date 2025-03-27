@@ -10,18 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appasiancuisine.R;
-import com.example.appasiancuisine.model.SpecialFoodModel;
+import com.example.appasiancuisine.data.dto.ProductDTO;
 
 import java.util.List;
 
 public class FoodPagerAdapter extends RecyclerView.Adapter<FoodPagerAdapter.PageViewHolder> {
 
     private final Context context;
-    private final List<List<SpecialFoodModel>> pagedFoodList;
+    private final List<List<ProductDTO>> pagedProductList;
 
-    public FoodPagerAdapter(Context context, List<List<SpecialFoodModel>> pagedFoodList) {
+    public FoodPagerAdapter(Context context, List<List<ProductDTO>> pagedProductList) {
         this.context = context;
-        this.pagedFoodList = pagedFoodList;
+        this.pagedProductList = pagedProductList;
     }
 
     @NonNull
@@ -33,18 +33,17 @@ public class FoodPagerAdapter extends RecyclerView.Adapter<FoodPagerAdapter.Page
 
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
-        List<SpecialFoodModel> foodsInPage = pagedFoodList.get(position);
-
+        List<ProductDTO> foodsInPage = pagedProductList.get(position); // sử dụng ProductDTO ở đây
         SpecialFoodAdapter adapter = new SpecialFoodAdapter(context, foodsInPage);
         holder.recyclerView.setAdapter(adapter);
     }
 
     @Override
     public int getItemCount() {
-        return pagedFoodList.size(); // số lượng trang
+        return pagedProductList.size();
     }
 
-    static class PageViewHolder extends RecyclerView.ViewHolder {
+    public static class PageViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
 
         public PageViewHolder(@NonNull View itemView) {

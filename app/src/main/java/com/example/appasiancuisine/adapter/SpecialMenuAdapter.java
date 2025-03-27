@@ -13,102 +13,94 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appasiancuisine.R;
-import com.example.appasiancuisine.model.SpecialMenuModel;
+import com.example.appasiancuisine.data.dto.CategoryDTO;
+import com.example.appasiancuisine.data.dto.ProductDTO;
+import com.example.appasiancuisine.utils.AppConfig;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialMenuAdapter extends RecyclerView.Adapter<SpecialMenuAdapter.SpecialMenuViewHolder> {
+public class SpecialMenuAdapter extends RecyclerView.Adapter<SpecialMenuAdapter.MenuItemViewHolder> {
 
     private final Context context;
-    private final List<SpecialMenuModel> specialMenuList;
+    private final List<CategoryDTO> categoryList;
+    private final List<ProductDTO> allProducts;
 
-    public SpecialMenuAdapter(Context context, List<SpecialMenuModel> specialMenuList) {
+    public SpecialMenuAdapter(Context context, List<CategoryDTO> categoryList, List<ProductDTO> allProducts) {
         this.context = context;
-        this.specialMenuList = specialMenuList;
+        this.categoryList = categoryList;
+        this.allProducts = allProducts;
     }
 
     @NonNull
     @Override
-    public SpecialMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MenuItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_special_menu, parent, false);
-        return new SpecialMenuViewHolder(view);
+        return new MenuItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SpecialMenuViewHolder holder, int position) {
-        SpecialMenuModel item = specialMenuList.get(position);
-        holder.menuImage.setImageResource(item.getImageResId());
-        holder.menuTitle.setText(item.getTitle());
+    public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
+        CategoryDTO category = categoryList.get(position);
+        holder.title.setText(category.getName());
 
-        // Xóa các dòng món ăn cũ trước khi thêm mới
-        holder.menuItems.removeAllViews();
+        // Load ảnh danh mục
+        Picasso.get()
+                .load(AppConfig.BASE_URL + category.getCategoryImg())
+                .placeholder(R.drawable.pd10)
+                .error(R.drawable.pd10)
+                .into(holder.image);
 
-        for (String food : item.getFoodItems()) {
-            String[] parts = food.split(" - ");
-            String name = parts[0];
-            String price = (parts.length > 1) ? parts[1] : "";
+        // Xóa view cũ trong danh sách món
+        holder.menuItemList.removeAllViews();
 
-            LinearLayout row = new LinearLayout(context);
-            row.setOrientation(LinearLayout.HORIZONTAL);
-            row.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-
-            // Tên món
-            TextView nameView = new TextView(context);
-            nameView.setText("• " + name);
-            nameView.setTextSize(14f);
-            nameView.setTextColor(Color.WHITE);
-            nameView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-            // Giá món
-            TextView priceView = new TextView(context);
-            priceView.setText(price);
-            priceView.setTextSize(14f);
-            priceView.setTextColor(Color.LTGRAY);
-            priceView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-
-            // Padding cho từng dòng món
-            int padV = (int) (4 * context.getResources().getDisplayMetrics().density);
-            row.setPadding(0, padV, 0, padV);
-
-            row.addView(nameView);
-            row.addView(priceView);
-            holder.menuItems.addView(row);
+        // Lọc sản phẩm thuộc danh mục
+        List<ProductDTO> categoryProducts = new ArrayList<>();
+        for (ProductDTO product : allProducts) {
+            if (product.getCategoryId() == category.getId()) {
+                categoryProducts.add(product);
+            }
         }
 
-        // ✅ Zig-zag layout (luân phiên vị trí ảnh)
-        holder.rootLayout.removeAllViews();
+        // Hiển thị tối đa 2 món đầu tiên
+        for (int i = 0; i < Math.min(2, categoryProducts.size()); i++) {
+            ProductDTO product = categoryProducts.get(i);
+
+            TextView itemView = new TextView(context);
+            itemView.setText(product.getName() + " - $" + String.format("%.2f", product.getPrice()));
+            itemView.setTextColor(Color.WHITE);
+            itemView.setTextSize(14);
+            itemView.setPadding(0, 4, 0, 4);
+
+            holder.menuItemList.addView(itemView);
+        }
+
+        // Zig-zag: ảnh trái phải xen kẽ
         if (position % 2 == 0) {
-            holder.rootLayout.addView(holder.menuImage);
-            holder.rootLayout.addView(holder.menuContentLayout);
+            holder.rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
         } else {
-            holder.rootLayout.addView(holder.menuContentLayout);
-            holder.rootLayout.addView(holder.menuImage);
+            holder.rootLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
 
     @Override
     public int getItemCount() {
-        return specialMenuList.size();
+        return categoryList.size();
     }
 
-    public static class SpecialMenuViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout rootLayout, menuContentLayout, menuItems;
-        ImageView menuImage;
-        TextView menuTitle;
+    static class MenuItemViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView title;
+        LinearLayout menuItemList;
+        LinearLayout rootLayout;
 
-        public SpecialMenuViewHolder(@NonNull View itemView) {
+        public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            rootLayout = itemView.findViewById(R.id.rootLayout);
-            menuImage = itemView.findViewById(R.id.menuImage);
-            menuTitle = itemView.findViewById(R.id.menuTitle);
-            menuItems = itemView.findViewById(R.id.menuItemList);
-            menuContentLayout = (LinearLayout) menuTitle.getParent();
+            image = itemView.findViewById(R.id.menuImage);
+            title = itemView.findViewById(R.id.menuTitle);
+            menuItemList = itemView.findViewById(R.id.menuItemList);   // ✅ fix lỗi
+            rootLayout = itemView.findViewById(R.id.rootLayout);       // ✅ fix lỗi
         }
     }
 }
