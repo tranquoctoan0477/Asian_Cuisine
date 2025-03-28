@@ -5,16 +5,17 @@ import android.content.SharedPreferences;
 
 public class PreferenceManager {
 
-
     private static final String PREF_NAME = "intro_pref";
     private static final String KEY_FIRST_TIME = "isFirstTimeLaunch";
 
-    // ✅ Thêm các key mới cho login
     private static final String KEY_ACCESS_TOKEN = "accessToken";
     private static final String KEY_REFRESH_TOKEN = "refreshToken";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_ROLE = "role";
+    private static final String KEY_AVATAR_URI = "avatarUri";
+
+    private static final String KEY_RESET_PHONE = "reset_phone"; // 👈 Thêm key
 
     private final SharedPreferences prefs;
     private final SharedPreferences.Editor editor;
@@ -24,13 +25,14 @@ public class PreferenceManager {
         editor = prefs.edit();
     }
 
+    // ---------- First time launch ----------
     public boolean isFirstTimeLaunch() {
-        return prefs.getBoolean(KEY_FIRST_TIME, true); // Mặc định là true
+        return prefs.getBoolean(KEY_FIRST_TIME, true);
     }
 
     public void setFirstTimeLaunch(boolean isFirstTime) {
         editor.putBoolean(KEY_FIRST_TIME, isFirstTime);
-        editor.apply(); // Lưu lại
+        editor.apply();
     }
 
     // ---------- Save login info ----------
@@ -63,7 +65,10 @@ public class PreferenceManager {
         return prefs.getString(KEY_ROLE, null);
     }
 
-    // ---------- Xoá dữ liệu login ----------
+    public boolean isLoggedIn() {
+        return getAccessToken() != null && !getAccessToken().isEmpty();
+    }
+
     public void clearLoginData() {
         editor.remove(KEY_ACCESS_TOKEN);
         editor.remove(KEY_REFRESH_TOKEN);
@@ -72,4 +77,33 @@ public class PreferenceManager {
         editor.remove(KEY_ROLE);
         editor.apply();
     }
+
+    // ---------- Avatar ----------
+    public void saveAvatarUri(String uri) {
+        editor.putString(KEY_AVATAR_URI, uri);
+        editor.apply();
+    }
+
+    public String getAvatarUri() {
+        return prefs.getString(KEY_AVATAR_URI, null);
+    }
+
+    // ---------- Reset Password ----------
+    public void saveResetPhone(String phone) {
+        editor.putString(KEY_RESET_PHONE, phone);
+        editor.apply();
+    }
+
+    public String getResetPhone() {
+        return prefs.getString(KEY_RESET_PHONE, null);
+    }
+
+    public void clearResetPhone() {
+        editor.remove(KEY_RESET_PHONE);
+        editor.apply();
+    }
+    public String getPhone() {
+        return prefs.getString("reset_phone", null);
+    }
+
 }

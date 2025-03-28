@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:background="@color/darker"
+    android:padding="16dp">
+
+    <!-- Nút chỉnh sửa -->
+    <ImageButton
+    android:id="@+id/button_edit_profile"
+    android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_alignParentEnd="true"
+    android:background="@drawable/bg_circle_border_cam"
+    android:src="@drawable/ic_edit"
+    android:contentDescription="Chỉnh sửa" />
+
+        <!-- Nội dung chính -->
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_centerInParent="true">
+
+    <!-- Avatar -->
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/img_logo"
+        android:background="@drawable/bg_circle_white"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Tên -->
+    <TextView
+        android:id="@+id/text_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trần Quốc Toàn"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tranquoctoan@gmail.com"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    <!-- SĐT -->
+    <TextView
+        android:id="@+id/text_user_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+84 912 345 678"
+        android:textColor="#BBBBBB"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+</RelativeLayout>

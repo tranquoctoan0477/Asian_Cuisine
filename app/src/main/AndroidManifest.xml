@@ -35,6 +35,13 @@
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.ProductDetailActivity" />
+        <activity
+            android:name=".view.ResetPasswordActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity android:name=".view.ResetNewPasswordActivity" />
+
 
         <activity
             android:name=".view.MainActivity"

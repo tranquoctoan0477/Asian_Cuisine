@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="24dp">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đặt lại mật khẩu"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Mô tả phụ -->
+    <TextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhập số điện thoại đã đăng ký để nhận mã xác thực"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Ô nhập số điện thoại -->
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:maxLength="15"
+        android:textColor="@android:color/white"
+        android:textColorHint="#888888"
+        android:background="@drawable/bg_input_field"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Nút gửi mã OTP -->
+    <Button
+        android:id="@+id/button_send_otp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Gửi mã xác thực"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bg_button_checkout"
+        android:backgroundTint="@null" />
+</LinearLayout>
