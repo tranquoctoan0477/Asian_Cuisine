@@ -35,6 +35,7 @@
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.ProductDetailActivity" />
+        <activity android:name=".view.CartActivity"/>
         <activity
             android:name=".view.ResetPasswordActivity"
             android:exported="false"

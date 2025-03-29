@@ -44,6 +44,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.tbuonomo:dotsindicator:4.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
