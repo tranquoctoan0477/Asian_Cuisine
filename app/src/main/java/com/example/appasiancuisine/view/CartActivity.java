@@ -1,5 +1,6 @@
 package com.example.appasiancuisine.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,13 +17,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appasiancuisine.R;
 import com.example.appasiancuisine.adapter.CartAdapter;
+import com.example.appasiancuisine.data.dto.CheckoutItemDTO;
 import com.example.appasiancuisine.utils.AppConfig;
 import com.example.appasiancuisine.utils.PreferenceManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +46,7 @@ public class CartActivity extends AppCompatActivity implements CartUpdateListene
 
         recyclerCartItems = findViewById(R.id.recycler_cart_items);
         textCartTotal = findViewById(R.id.text_cart_total);
+        Button  buttonCheckout = findViewById(R.id.button_checkout); // ✅ Ánh xạ nút Thanh toán
 
         cartItems = new ArrayList<>();
         cartAdapter = new CartAdapter(this, cartItems, this);
@@ -49,6 +54,27 @@ public class CartActivity extends AppCompatActivity implements CartUpdateListene
         recyclerCartItems.setAdapter(cartAdapter);
 
         fetchCartItems();
+
+        // ✅ Xử lý khi bấm "Thanh toán"
+        buttonCheckout.setOnClickListener(v -> {
+            if (cartItems.isEmpty()) {
+                Toast.makeText(this, "Giỏ hàng đang trống!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            List<CheckoutItemDTO> checkoutList = convertToCheckoutItems(cartItems);
+
+            // Log toàn bộ danh sách `checkoutList` trước khi gửi đi
+            for (CheckoutItemDTO item : checkoutList) {
+                Log.d("CartActivity", "📤 Đang truyền - Product: "
+                        + item.getProductName() + " - Note: " + item.getNote());
+            }
+
+            Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+            intent.putExtra("checkout_items", (Serializable) checkoutList);
+            startActivity(intent);
+        });
+
     }
 
     private void fetchCartItems() {
@@ -65,7 +91,12 @@ public class CartActivity extends AppCompatActivity implements CartUpdateListene
 
                         cartItems.clear();
                         for (int i = 0; i < itemsArray.length(); i++) {
-                            cartItems.add(itemsArray.getJSONObject(i));
+                            JSONObject item = itemsArray.getJSONObject(i);
+                            // Cập nhật thêm thông tin ghi chú
+                            if (!item.has("note")) {
+                                item.put("note", "");  // Nếu không có note, set thành chuỗi rỗng
+                            }
+                            cartItems.add(item);
                         }
                         cartAdapter.notifyDataSetChanged();
 
@@ -116,6 +147,48 @@ public class CartActivity extends AppCompatActivity implements CartUpdateListene
         requestQueue.add(request);
     }
 
+    public void updateCartNote(long productId, String note, int quantity) {
+        String url = AppConfig.CART_UPDATE_URL; // URL của API update giỏ hàng
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("productId", productId);
+            requestBody.put("note", note);
+            requestBody.put("quantity", quantity);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, requestBody,
+                response -> {
+                    Toast.makeText(CartActivity.this, "Ghi chú được cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    Toast.makeText(CartActivity.this, "Lỗi khi cập nhật ghi chú!", Toast.LENGTH_SHORT).show();
+                    Log.e("CartActivity", "❌ Lỗi khi cập nhật ghi chú: " + error.toString());
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+
+                PreferenceManager preferenceManager = new PreferenceManager(CartActivity.this);
+                String accessToken = preferenceManager.getAccessToken();
+
+                if (accessToken != null && !accessToken.isEmpty()) {
+                    headers.put("Authorization", "Bearer " + accessToken);
+                }
+
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+    }
+
+
+
     // Cập nhật tổng giá sau khi xóa một item
     public void updateTotalAfterRemove() {
         double total = 0;
@@ -131,6 +204,37 @@ public class CartActivity extends AppCompatActivity implements CartUpdateListene
         // ✅ Hiển thị tổng giá theo đúng định dạng tiền Việt Nam
         textCartTotal.setText(String.format("%,d₫", (int) total));
     }
+
+    private List<CheckoutItemDTO> convertToCheckoutItems(List<JSONObject> jsonItems) {
+        List<CheckoutItemDTO> result = new ArrayList<>();
+        for (JSONObject obj : jsonItems) {
+            try {
+                long productId = obj.getLong("productId");
+                String productName = obj.getString("productName");
+                int quantity = obj.getInt("quantity");
+                double price = obj.getDouble("price");
+
+                // ✅ Kiểm tra dữ liệu `note` xem có bị `null` hay không
+                String note = obj.optString("note", ""); // Dùng `optString` để đảm bảo không bị lỗi nếu note không tồn tại
+                if (note == null || note.equals("null")) {
+                    note = ""; // Nếu là `null`, thay bằng chuỗi rỗng
+                }
+
+                String thumbnail = obj.optString("thumbnail", "");
+
+                Log.d("CartActivity", "📦 Product: " + productName + " - Note: " + note);
+
+                CheckoutItemDTO item = new CheckoutItemDTO(productId, productName, quantity, note, price, thumbnail);
+                result.add(item);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+
+
 
 
 }

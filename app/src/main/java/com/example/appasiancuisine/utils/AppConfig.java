@@ -2,7 +2,7 @@ package com.example.appasiancuisine.utils;
 
 public class AppConfig {
 
-    public static final String BASE_URL = "http://192.168.1.4:8080";
+    public static final String BASE_URL = "http://192.168.1.13:8080";
 
     public static final String REGISTER_URL = BASE_URL + "/api/auth/register";
     // Đường dẫn đầy đủ API login
@@ -26,5 +26,5 @@ public class AppConfig {
     public static final String CART_GET_URL = BASE_URL + "/api/cart";
 
     // 💳 Checkout API
-    public static final String CHECKOUT_URL = BASE_URL + "/api/checkout";
+    public static final String CHECKOUT_URL = BASE_URL + "/api/cart/checkout";
 }

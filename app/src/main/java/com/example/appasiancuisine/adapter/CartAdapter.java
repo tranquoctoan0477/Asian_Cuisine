@@ -1,6 +1,8 @@
 package com.example.appasiancuisine.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         JSONObject item = cartItems.get(position);
 
         try {
-            String productId = item.getString("productId"); // Lấy ID sản phẩm cần cập nhật
+            String productId = item.getString("productId");
             String productName = item.getString("productName");
             int quantity = item.getInt("quantity");
             double price = item.getDouble("price");
@@ -79,15 +81,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         .into(holder.imageProduct);
             }
 
-            // Xử lý nút Xoá sản phẩm
-            holder.buttonRemove.setOnClickListener(v -> removeCartItem(productId, position));
+            // Thêm TextWatcher để cập nhật `note` ngay khi người dùng nhập
+            holder.textProductNote.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            // Xử lý nút Tăng số lượng
-            holder.buttonIncrease.setOnClickListener(v -> {
-                updateQuantity(productId, quantity + 1, holder.textProductNote.getText().toString(), position);
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    try {
+                        String updatedNote = s.toString();
+                        item.put("note", updatedNote); // ✅ Cập nhật ngay lập tức `note` vào `cartItems`
+                        Log.d("CartAdapter", "📥 Đang cập nhật ghi chú: " + updatedNote);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {}
             });
 
-            // Xử lý nút Giảm số lượng
+            holder.buttonRemove.setOnClickListener(v -> removeCartItem(productId, position));
+
+            holder.buttonIncrease.setOnClickListener(v -> updateQuantity(productId, quantity + 1, holder.textProductNote.getText().toString(), position));
+
             holder.buttonDecrease.setOnClickListener(v -> {
                 if (quantity > 1) {
                     updateQuantity(productId, quantity - 1, holder.textProductNote.getText().toString(), position);
@@ -96,17 +113,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
             });
 
-            // Xử lý khi người dùng thay đổi ghi chú
-            holder.textProductNote.setOnFocusChangeListener((v, hasFocus) -> {
-                if (!hasFocus) { // Khi mất focus, gửi request cập nhật ghi chú
-                    updateQuantity(productId, quantity, holder.textProductNote.getText().toString(), position);
-                }
-            });
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
 
     private void removeCartItem(String productId, int position) {
@@ -183,6 +194,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                         // ✅ Cập nhật quantity mới trong cartItems
                         cartItems.get(position).put("quantity", quantity);
+                        cartItems.get(position).put("note", note);
                         notifyItemChanged(position);
 
                         // Cập nhật tổng giá (gọi từ CartActivity)
