@@ -37,6 +37,7 @@
         <activity android:name=".view.ProductDetailActivity" />
         <activity android:name=".view.CartActivity"/>
         <activity android:name=".view.CheckoutActivity" />
+        <activity android:name=".view.OrderDetailActivity" />
 
         <activity
             android:name=".view.ResetPasswordActivity"

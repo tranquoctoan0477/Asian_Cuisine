@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/black">
+    android:background="@android:color/white">
 
     <!-- Cuộn toàn bộ nội dung -->
     <androidx.core.widget.NestedScrollView
@@ -13,24 +13,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black"
             android:orientation="vertical"
             android:padding="8dp">
 
             <!-- Header của chi tiết đơn hàng -->
             <include
-                layout="@layout/layout_order_header"
+                layout="@layout/layout_order_detail_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- Danh sách đơn hàng -->
+            <!-- Danh sách sản phẩm trong đơn hàng -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_orders"
+                android:id="@+id/recycler_order_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/darker"
+                android:nestedScrollingEnabled="false"
                 android:paddingTop="8dp"
-                android:scrollbars="vertical"
-                android:nestedScrollingEnabled="false" /> <!-- Đặt nestedScrollingEnabled là false -->
+                android:scrollbars="vertical" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

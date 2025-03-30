@@ -27,4 +27,9 @@ public class AppConfig {
 
     // 💳 Checkout API
     public static final String CHECKOUT_URL = BASE_URL + "/api/cart/checkout";
+
+    // 🛍️ Order APIs
+    public static final String ORDER_LIST_URL = BASE_URL + "/api/orders"; // Lấy danh sách đơn hàng của user
+    public static final String ORDER_DETAIL_URL = BASE_URL + "/api/orders/"; // Lấy chi tiết đơn hàng (cần thêm orderId)
+
 }
