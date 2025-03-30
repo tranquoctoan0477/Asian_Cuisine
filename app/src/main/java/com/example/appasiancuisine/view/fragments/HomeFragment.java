@@ -1,8 +1,10 @@
 package com.example.appasiancuisine.view.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import com.example.appasiancuisine.utils.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -74,6 +77,9 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
         setupSearch(view);   // gọi hàm tìm kiếm
         setupFilter(view);   //gọi hàm lọc
 
+        // Kiểm tra trạng thái sinh trắc học
+        checkBiometricStatus();
+
         // Thêm sự kiện cuộn
         foodRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -94,6 +100,38 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
 
         return view;
     }
+
+    private void checkBiometricStatus() {
+        PreferenceManager preferenceManager = new PreferenceManager(requireContext());
+        boolean isFingerprintEnabled = preferenceManager.isFingerprintEnabled();
+        boolean isFaceRecognitionEnabled = preferenceManager.isFaceRecognitionEnabled();
+
+        Log.d("Biometric", "Trạng thái Vân tay: " + (isFingerprintEnabled ? "Đã kích hoạt" : "Chưa kích hoạt"));
+        Log.d("Biometric", "Trạng thái Khuôn mặt: " + (isFaceRecognitionEnabled ? "Đã kích hoạt" : "Chưa kích hoạt"));
+
+        if (!isFingerprintEnabled && !isFaceRecognitionEnabled) {
+
+            // Thêm Handler để tạo độ trễ (3 giây)
+            new Handler().postDelayed(() -> {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Đăng ký Sinh Trắc Học")
+                        .setMessage("Bạn có muốn đăng ký đăng nhập bằng Vân tay hoặc Khuôn mặt không?")
+                        .setPositiveButton("Có", (dialog, which) -> {
+                            preferenceManager.setFingerprintEnabled(true); // Hoặc dùng setFaceRecognitionEnabled(true)
+                            Toast.makeText(requireContext(), "Bạn đã kích hoạt xác thực sinh trắc học.", Toast.LENGTH_SHORT).show();
+                            Log.d("Biometric", "Người dùng đã kích hoạt xác thực sinh trắc học.");
+                        })
+                        .setNegativeButton("Không", (dialog, which) -> {
+                            preferenceManager.setFingerprintEnabled(false);
+                            preferenceManager.setFaceRecognitionEnabled(false);
+                            Toast.makeText(requireContext(), "Bạn đã bỏ qua xác thực sinh trắc học.", Toast.LENGTH_SHORT).show();
+                            Log.d("Biometric", "Người dùng đã từ chối kích hoạt xác thực sinh trắc học.");
+                        })
+                        .show();
+            }, 3000); // 3000 milliseconds = 3 giây
+        }
+    }
+
 
 
     private void setupBanner(View view) {
@@ -252,9 +290,6 @@ public class HomeFragment extends Fragment implements HomeContract.View, Reloada
         // Scroll về đầu danh sách sau khi cập nhật dữ liệu
         foodRecyclerView.scrollToPosition(0);
     }
-
-
-
 
     @Override
     public void onHomeDataError(String errorMessage) {

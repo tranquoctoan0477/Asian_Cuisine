@@ -43,6 +43,7 @@ dependencies {
     implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("androidx.biometric:biometric:1.2.0-alpha04")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.tbuonomo:dotsindicator:4.3")

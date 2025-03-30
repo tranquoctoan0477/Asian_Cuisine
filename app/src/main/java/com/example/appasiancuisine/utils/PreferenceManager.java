@@ -17,6 +17,10 @@ public class PreferenceManager {
 
     private static final String KEY_RESET_PHONE = "reset_phone"; // 👈 Thêm key
 
+    // 🔑 Thêm các key mới để lưu trạng thái sinh trắc học
+    private static final String KEY_FINGERPRINT_ENABLED = "fingerprint_enabled";
+    private static final String KEY_FACE_RECOGNITION_ENABLED = "face_recognition_enabled";
+
     private final SharedPreferences prefs;
     private final SharedPreferences.Editor editor;
 
@@ -102,8 +106,32 @@ public class PreferenceManager {
         editor.remove(KEY_RESET_PHONE);
         editor.apply();
     }
+
     public String getPhone() {
         return prefs.getString("reset_phone", null);
     }
 
+    // ==============================
+    // 🔐 Quản lý trạng thái sinh trắc học
+    // ==============================
+
+    // Lưu trạng thái vân tay
+    public void setFingerprintEnabled(boolean isEnabled) {
+        editor.putBoolean(KEY_FINGERPRINT_ENABLED, isEnabled);
+        editor.apply();
+    }
+
+    public boolean isFingerprintEnabled() {
+        return prefs.getBoolean(KEY_FINGERPRINT_ENABLED, false);
+    }
+
+    // Lưu trạng thái nhận diện khuôn mặt
+    public void setFaceRecognitionEnabled(boolean isEnabled) {
+        editor.putBoolean(KEY_FACE_RECOGNITION_ENABLED, isEnabled);
+        editor.apply();
+    }
+
+    public boolean isFaceRecognitionEnabled() {
+        return prefs.getBoolean(KEY_FACE_RECOGNITION_ENABLED, false);
+    }
 }

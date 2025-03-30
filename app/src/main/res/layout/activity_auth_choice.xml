@@ -31,7 +31,7 @@
             android:layout_marginBottom="48dp" />
 
         <!-- Nút Đăng ký -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSignUp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -42,7 +42,7 @@
             android:layout_marginBottom="36dp" />
 
         <!-- Nút Đăng nhập -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSignIn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
